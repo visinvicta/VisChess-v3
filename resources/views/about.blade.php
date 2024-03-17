@@ -8,7 +8,7 @@
             <h1>About</h1>
         </div>
         <?= dd(auth()->user()); ?>
-</div>
+    </div>
 
 
-@endsection
+    @endsection

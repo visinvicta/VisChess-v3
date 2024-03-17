@@ -11,11 +11,13 @@ use Illuminate\Http\RedirectResponse;
 
 class RegisterController extends Controller
 {
-    public function create(): View {
+    public function create(): View
+    {
         return view('register/create');
     }
 
-    public function store(RegisterNewUserRequest $request): RedirectResponse {
+    public function store(RegisterNewUserRequest $request): RedirectResponse
+    {
         $user = User::create($request->validated());
         Auth::login($user);
         Session::flash('success', 'Your account has been created.');

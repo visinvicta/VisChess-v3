@@ -14,16 +14,19 @@ use Illuminate\View\View;
 
 class StudyController extends Controller
 {
-    public function index(): View {
+    public function index(): View
+    {
         $studies = Study::all();
         return view('studies/index')->with('studies', $studies);
     }
 
-    public function create(): View {
+    public function create(): View
+    {
         return view('studies/create');
     }
 
-    public function store(StoreNewStudyRequest $request): JsonResponse|RedirectResponse {
+    public function store(StoreNewStudyRequest $request): JsonResponse|RedirectResponse
+    {
         $validatedData = $request->validated();
         $validatedData['user_id'] = Auth::id();
 
@@ -33,23 +36,24 @@ class StudyController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
         return redirect('/studies')
-        ->with('success', 'Study created succesfully');
+            ->with('success', 'Study created succesfully');
     }
 
-    public function show(Study $study): View {
+    public function show(Study $study): View
+    {
         $study = Study::with('chapters.comments')
-        ->findOrFail($study->id);
+            ->findOrFail($study->id);
 
         return view('studies.show', compact('study'));
     }
-    
-    
-    public function update() {
+
+
+    public function update()
+    {
     }
 
-    public function getChapterPgn(Chapter $chapter): JsonResponse {
+    public function getChapterPgn(Chapter $chapter): JsonResponse
+    {
         return response()->json(['pgn' => $chapter->pgn]);
     }
-
-    
 }

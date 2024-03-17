@@ -13,19 +13,21 @@ class Study extends Model
         'name',
         'description',
         'user_id',
-          
+
     ];
 
-    public function owner() {
+    public function owner()
+    {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function users() {
+    public function users()
+    {
         return $this->belongsToMany(User::class, 'study_users');
     }
-    
-    public function chapters() {
+
+    public function chapters()
+    {
         return $this->hasMany(Chapter::class, 'study_id');
     }
 }
-

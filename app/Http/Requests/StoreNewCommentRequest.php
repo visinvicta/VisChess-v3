@@ -26,9 +26,7 @@ class StoreNewCommentRequest extends FormRequest
             'comment' => ['required', 'string'],
             'move_number' => ['required', 'integer'],
             'study_id' => ['required', 'integer'],
-            'chapter_id'=> ['required', 'integer'],
+            'chapter_id' => ['required', 'integer'],
         ];
     }
-
-   
 }

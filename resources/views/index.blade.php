@@ -17,11 +17,11 @@
             <label>FEN:</label>
             <div class="fencontainer" id="fen"></div>
             <label>PGN:</label>
-            <div class="importpgn pgncontainer" id="pgn" type="text"></div>
+            <div class="importpgn pgncontainer" id="pgn"></div>
         </div>
     </div>
 
-    
+
 </div>
 <div class="flash-message" style="display: none;">
     @if(session('success'))

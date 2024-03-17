@@ -19,7 +19,7 @@
                         <div class="gamecontainer">
                             <div class="gameboard" id="gameboard-{{ $favorite->id }}"></div>
                             <div class="gameinfocontainer">
-                                <div class="gameusername">{{ $favorite->user_id }}</div>
+                                <div class="gameusername">{{ $favorite->user->name }}</div>
                                 <div class="gamepgn">{{ $favorite->pgn }}</div>
                                 <div class="buttoncontainer">
                                     <a href="/favorite/{{ $favorite->id }}" class="btn btn-color-1">Open in analysisboard</a>

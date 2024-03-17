@@ -16,7 +16,7 @@ let gamePGN = []
 let storePGN = ''
 
 function nextMove() {
-  let newPGN = gamePGN.slice(0, currentMove).join(' ')     
+  let newPGN = gamePGN.slice(0, currentMove).join(' ')
   game.load_pgn(newPGN)
   updateStatusAll()
 }
@@ -25,9 +25,9 @@ const importField = document.getElementById("importpgn");
 const importButton = document.getElementById("importpgnsubmit");
 
 importButton.addEventListener("click", function () {
-  game.load_pgn(importField.value);
+game.load_pgn(importField.value);
   importPGN = importField.value;
-  gamePGN = importPGN.replace(/\d+\.\s+/g, '').split(/\s+/).filter(move => move.trim() !== ''); 
+  gamePGN = importPGN.replace(/\d+\.\s+/g, '').split(/\s+/).filter(move => move.trim() !== '');
   moveCount = gamePGN.length
   currentMove = gamePGN.length;
   storePGN = addMoveNumbers(gamePGN.join(' '))
@@ -35,15 +35,39 @@ importButton.addEventListener("click", function () {
 })
 
 function addMoveNumbers(gameString) {
-  const moves = gameString.split(' ');
+  const moves = gameString.trim().split(/\s+/).filter(move => move.trim() !== '');
   let numberedMoves = '';
-  for (let i = 0; i < moves.length; i += 2) {
-      const moveNumber = Math.floor(i / 2) + 1;
-      numberedMoves += moveNumber + '. ' + moves[i] + ' ' + moves[i + 1] + ' ';
+  let moveNumber = 1;
+
+  for (let i = 0; i < moves.length; i++) {
+    if (i % 2 === 0) { 
+      numberedMoves += moveNumber + '. ';
+      moveNumber++;
+    }
+    numberedMoves += moves[i] + ' ';
   }
-  numberedMoves = numberedMoves.trim();
-  return numberedMoves;
+
+  return numberedMoves.trim();
 }
+
+// function addMoveNumbers(gameString) {
+//   const moves = gameString.split(' ');
+//   let numberedMoves = '';
+
+//   if (moveCount % 2) { //UNEVEN
+//     for (let i = 0; i < moves.length; i += 2) {
+//       const moveNumber = Math.floor(i / 2) + 1;
+//       numberedMoves += moveNumber + '. ' + moves[i] + ' ' + moves[i + 1] + ' ';
+//     }
+//   } else { //Even
+//     for (let i = 0; i < moves.length; i += 2) {
+//       const moveNumber = Math.floor(i / 2) + 1;
+//       numberedMoves += moveNumber + '. ' + moves[i] + ' ' + moves[i + 1] + ' ';
+//     }
+//   }
+//   formattedMoves = numberedMoves.trim();
+//   return formattedMoves;
+// }
 
 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
@@ -54,9 +78,9 @@ async function sendDataToServer(endpoint) {
         method: 'POST',
         headers: {
           'Content-type': 'application/json',
-          'X-CSRF-TOKEN': csrfToken  
+          'X-CSRF-TOKEN': csrfToken
         },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           "pgn": storePGN,
           "whiteplayer": 'Carlsen, Magnus',
           "blackplayer": 'Nakamura, Hikaru',

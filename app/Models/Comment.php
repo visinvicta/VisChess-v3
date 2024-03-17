@@ -16,7 +16,7 @@ class Comment extends Model
         'study_id',
         'chapter_id',
     ];
-    
+
 
     public function chapter()
     {

@@ -8,17 +8,6 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\StudyController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
 Route::get('/', function () {
     return view('index');
 });
@@ -58,6 +47,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/studies/create', [StudyController::class, 'create']);
     Route::get('/study/{study}', [StudyController::class, 'show']);
     Route::post('/studies', [StudyController::class, 'store']);
+
+    Route::post('/add-users-to-study', [StudyController::class, 'addUserToStudy'])->name('add.users.to.study');
 
     //Chapters
     Route::post('/chapters', [ChapterController::class, 'store'])->name('chapters.store');

@@ -10,7 +10,9 @@ use Illuminate\Http\Request;
 use App\Models\Chapter;
 use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use Illuminate\View\View;
+use App\Services\StudyUserService;
 
 class StudyController extends Controller
 {
@@ -44,7 +46,9 @@ class StudyController extends Controller
         $study = Study::with('chapters.comments')
             ->findOrFail($study->id);
 
-        return view('studies.show', compact('study'));
+        $users = User::all();
+
+        return view('studies.show', compact('study', 'users'));
     }
 
 
@@ -55,5 +59,19 @@ class StudyController extends Controller
     public function getChapterPgn(Chapter $chapter): JsonResponse
     {
         return response()->json(['pgn' => $chapter->pgn]);
+    }
+
+    public function addUserToStudy(Request $request): RedirectResponse
+    {
+        $studyId = $request->input('study_id');
+        $userIdsToAdd = $request->input('user_ids');
+
+        try {
+            StudyUserService::addUserToStudy($studyId, $userIdsToAdd);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to add users to the study.');
+        }
+
+        return redirect()->back()->with('success', 'Users added to the study successfully.');
     }
 }

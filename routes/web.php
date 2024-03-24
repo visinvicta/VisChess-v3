@@ -59,6 +59,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/study/{study}', [StudyController::class, 'show']);
     Route::post('/studies', [StudyController::class, 'store']);
 
+    Route::post('/add-users-to-study', [StudyController::class, 'addUserToStudy'])->name('add.users.to.study');
+
     //Chapters
     Route::post('/chapters', [ChapterController::class, 'store'])->name('chapters.store');
     Route::get('/get-chapter-pgn/{chapter}', [StudyController::class, 'getChapterPgn']);

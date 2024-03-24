@@ -10,8 +10,8 @@ use Illuminate\Http\Request;
 use App\Models\Chapter;
 use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\View\View;
 use App\Models\User;
+use Illuminate\View\View;
 use App\Services\StudyUserService;
 
 class StudyController extends Controller

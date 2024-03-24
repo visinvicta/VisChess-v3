@@ -192,6 +192,36 @@
 </div>
 
 
+
+
+    <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="addUserModalLabel">Add Users to Study</h2>
+            </div>
+            <div class="modal-body">
+                <form id="addUserForm">
+                    <input type="hidden" name="study_id" value="{{ $study->id }}">
+
+                    <div class="form-group">
+                        <label for="userIds">Select Users</label>
+                        <select multiple class="form-control" id="userIds" name="user_ids[]">
+                            @foreach($users as $user)
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-color-1 btn-secondary close" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-color-1 btn-primary" id="addUserBtn">Add Users</button>
+            </div>
+        </div>
+    </div>
+</div>
+
     <footer>
         <script src="{{ asset('/js/chessfunctions.js') }}"></script>
         <script src="{{ asset('/js/study.js') }}"></script>

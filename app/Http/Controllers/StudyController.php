@@ -12,7 +12,6 @@ use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\View\View;
-use App\Services\AddUserToStudyService;
 use App\Services\StudyUserService;
 
 class StudyController extends Controller
@@ -95,7 +94,7 @@ class StudyController extends Controller
         }
 
         try {
-            AddUserToStudyService::addUserToStudy($studyId, $userIdsToAdd);
+            StudyUserService::addUserToStudy($studyId, $userIdsToAdd);
         } catch (\Exception $e) {
             return redirect()->back()
                 ->with('error', 'Failed to add users to the study.');

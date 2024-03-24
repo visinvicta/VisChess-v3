@@ -12,11 +12,11 @@
             <div id="analysisboard" style="width: 596px"></div>
 
             <div class="scrollbuttoncontainer">
-                <button id="firstmove" class="btn btn-color-5"><<</button>
-                <button id="previousmove" class="btn btn-color-5"><</button>
-                <button id="nextmove" class="btn btn-color-5">></button>
-                <button id="lastmove" class="btn btn-color-5">>></button>
-                <button id="flipboard" class="btn btn-color-5">Flip</button>
+            <button id="firstmove" class="btn btn-color-5 material-symbols-outlined">keyboard_double_arrow_left</button>
+                <button id="previousmove" class="btn btn-color-5 material-symbols-outlined">chevron_left</button>
+                <button id="nextmove" class="btn btn-color-5 material-symbols-outlined">chevron_right</button>
+                <button id="lastmove" class="btn btn-color-5 material-symbols-outlined">keyboard_double_arrow_right</button>
+                <button id="flipboard" class="btn btn-color-5 material-symbols-outlined">cached</button>
             </div>
 
             <label>Status:</label>

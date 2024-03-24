@@ -2,12 +2,17 @@
 
 namespace App\Services;
 
-use App\Models\Study;
+use App\Models\User;
 
 class StudyUserService
 {
-    public static function addUserToStudy(int $studyId, array $userIdsToAdd): void
+    public static function userExistsInStudy(int $userId, int $studyId): bool
     {
-        Study::findOrFail($studyId)->users()->attach($userIdsToAdd);
+        $user = User::find($userId);
+        if (!$user) {
+            return false;
+        }
+
+        return $user->studies()->where('studies.id', $studyId)->exists();
     }
 }

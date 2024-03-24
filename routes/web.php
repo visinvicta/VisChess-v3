@@ -47,6 +47,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/studies/create', [StudyController::class, 'create']);
     Route::get('/study/{study}', [StudyController::class, 'show']);
     Route::post('/studies', [StudyController::class, 'store']);
+    Route::delete('/study/{study}', [StudyController::class, 'destroy']);
 
     Route::post('/add-users-to-study', [StudyController::class, 'addUserToStudy'])->name('add.users.to.study');
 

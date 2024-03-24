@@ -16,23 +16,25 @@
                 </thead>
                 <tbody>
                     @foreach ($favorites as $favorite)
-                        <div class="gamecontainer">
-                            <div class="gameboard" id="gameboard-{{ $favorite->id }}"></div>
-                            <div class="gameinfocontainer">
-                                <div class="gameusername">{{ $favorite->user->name }}</div>
-                                <div class="gamepgn">{{ $favorite->pgn }}</div>
-                                <div class="buttoncontainer">
-                                    <a href="/favorite/{{ $favorite->id }}" class="btn btn-color-1">Open in analysisboard</a>
-                                    
+                    <div class="gamecontainer">
+                        <div class="gameboard" id="gameboard-{{ $favorite->id }}"></div>
+                        <div class="gameinfocontainer">
+                            <div class="gameusername">{{ $favorite->user->name }}</div>
+                            <div class="gamepgn">{{ $favorite->pgn }}</div>
+                            <div class="buttoncontainer">
+                                <a href="/favorite/{{ $favorite->id }}" class="btn btn-color-1">Open in analysisboard</a>
 
-                                    <form action="/favorites/{{ $favorite->id }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <input type="submit" class="btn btn-color-4" value="Delete">
-                                    </form>
-                                </div>
+
+                                <form action="/favorites/{{ $favorite->id }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-color-4 delete-button">
+                                        <i class="material-symbols-outlined delete-icon">delete</i>
+                                    </button>
+                                </form>
                             </div>
                         </div>
+                    </div>
                     @endforeach
                 </tbody>
             </table>

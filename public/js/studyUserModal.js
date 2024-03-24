@@ -26,16 +26,20 @@ $(document).ready(function () {
             data: formData,
             success: function (response) {
                 console.log(response);
-                alert('Users added to study successfully!');
-                $("#addUserModal").css("display", "block");
-                $("#addUserForm")[0].reset();
+                if (response.success) {
+                    alert(response.message); 
+                    $("#addUserModal").css("display", "none");
+                    $("#modalOverlay").css("display", "none");
+                    $("#addUserForm")[0].reset();
+                } else {
+                    alert(response.error); 
+                }
             },
             error: function (xhr, status, error) {
                 console.error(xhr.responseText);
-                alert('An error occurred while adding users to the study.');
+                alert(response.error); 
             }
         });
     });
 
 });
-

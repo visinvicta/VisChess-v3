@@ -9,15 +9,15 @@
                 <h2>{{ $study->name }}</h2>
             </div>
         </div>
-       
+
         <a href="#" class="btn btn-color-1 btn-study btn-study-create" data-toggle="modal" data-target="#createChapterModal">Chapter +</a>
         <a href="#" class="btn btn-color-1 btn-add-user" data-toggle="modal" data-target="#addUserModal">User +</a>
-
+       
         <div class="study-container">
             <div class="sidebar">
                 <h3>Chapters</h3>
                 <ul class="chapter-list">
-                @forelse ($study->chapters as $chapter)
+                    @forelse ($study->chapters as $chapter)
                     <li id="{{ $chapter->id}}">{{ $chapter->name }}</li>
                     @empty
                     <li>No chapters available</li>
@@ -30,13 +30,14 @@
                     <div class="study-chessboard">
                         <div id="studyboard" style="width: 600px"></div>
                         <div class="study-btn-container">
-                            <button id="firstmove" class="btn btn-color-5"><<</button>
-                            <button id="previousmove" class="btn btn-color-5"><</button>
-                            <button id="nextmove" class="btn btn-color-5">></button>
-                            <button id="lastmove" class="btn btn-color-5">>></button>
-                            <button id="flipboard" class="btn btn-color-5">Flip</button>
+
+                            <button id="firstmove" class="btn btn-color-5 material-symbols-outlined">keyboard_double_arrow_left</button>
+                            <button id="previousmove" class="btn btn-color-5 material-symbols-outlined">chevron_left</button>
+                            <button id="nextmove" class="btn btn-color-5 material-symbols-outlined">chevron_right</button>
+                            <button id="lastmove" class="btn btn-color-5 material-symbols-outlined">keyboard_double_arrow_right</button>
+                            <button id="flipboard" class="btn btn-color-5 material-symbols-outlined">cached</button>
                             <button id="toggle-pgn-btn" class="btn btn-color-5">PGN</button>
-                            <button id="toggle-comments-btn" class="btn btn-color-5">Comments</button>
+                            <button id="toggle-comments-btn" class="btn btn-color-5 material-symbols-outlined">chat_bubble</button>
                         </div>
                         <div class="toggle-pgn">
                             <label>PGN:</label>
@@ -47,15 +48,25 @@
                             <label>Comments:</label>
                             <div class="comments" id="comment">
                                 @foreach ($study->chapters as $chapter)
-                                       @foreach ($chapter->comments as $comment)
-                                            <div class="move-{{ $comment->move_number }} chapter-{{ $comment->chapter_id }} comment-item" style="display: none;">
-                                            {{ $comment->comment }}
-                                            <a href="#" class="btn-delete-comment btn btn-color-4" data-comment-id="{{ $comment->id }}">Delete</a>
-                                            </div>
-                                        @endforeach
-                                    @endforeach
+                                @foreach ($chapter->comments as $comment)
+                                <div class="move-{{ $comment->move_number }} chapter-{{ $comment->chapter_id }} comment-item" style="display: none;">
+                                    {{ $comment->comment }}
+                                    <a href="#" class="btn-delete-comment btn btn-color-4" data-comment-id="{{ $comment->id }}">Delete</a>
+                                </div>
+                                @endforeach
+                                @endforeach
                             </div>
-                            <button id="addcomment" class="btn btn-color-5">Add comment</button>
+                            <div class="study-action-buttons">
+                                <button id="addcomment" class="btn btn-color-5">Add comment</button>
+                                <form method="POST">
+                                    @method('DELETE')
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{ $study->id }}">
+                                    <button type="submit" class="btn btn-color-4 delete-button">
+                                        <i class="material-symbols-outlined delete-icon">delete</i>
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -161,66 +172,35 @@
     </div>
 
     @endif
-    
-
-    <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" id="addUserModalLabel">Add Users to Study</h2>
-            </div>
-            <div class="modal-body">
-                <form id="addUserForm">
-                    <input type="hidden" name="study_id" value="{{ $study->id }}">
-
-                    <div class="form-group">
-                        <label for="userIds">Select Users</label>
-                        <select multiple class="form-control" id="userIds" name="user_ids[]">
-                            @foreach($users as $user)
-                                <option value="{{ $user->id }}">{{ $user->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-color-1 btn-secondary close" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-color-1 btn-primary" id="addUserBtn">Add Users</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
 
 
     <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" id="addUserModalLabel">Add Users to Study</h2>
-            </div>
-            <div class="modal-body">
-                <form id="addUserForm">
-                    <input type="hidden" name="study_id" value="{{ $study->id }}">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="addUserModalLabel">Add Users to Study</h2>
+                </div>
+                <div class="modal-body">
+                    <form id="addUserForm">
+                        <input type="hidden" name="study_id" value="{{ $study->id }}">
 
-                    <div class="form-group">
-                        <label for="userIds">Select Users</label>
-                        <select multiple class="form-control" id="userIds" name="user_ids[]">
-                            @foreach($users as $user)
+                        <div class="form-group">
+                            <label for="userIds">Select Users</label>
+                            <select multiple class="form-control" id="userIds" name="user_ids[]">
+                                @foreach($users as $user)
                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-color-1 btn-secondary close" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-color-1 btn-primary" id="addUserBtn">Add Users</button>
+                                @endforeach
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-color-1 btn-secondary close" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-color-1 btn-primary" id="addUserBtn">Add Users</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
     <footer>
         <script src="{{ asset('/js/chessfunctions.js') }}"></script>

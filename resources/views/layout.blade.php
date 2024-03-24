@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/chessboard-1.0.0.min.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"/>
     <link rel="icon" href="{{ asset("favicon-32.png") }}" type="image/x-icon">
     <link rel="shortcut icon" href="{{ asset("favicon-32.png") }}" type="image/x-icon">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

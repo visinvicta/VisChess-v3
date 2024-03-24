@@ -12,6 +12,7 @@ use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\View\View;
+use App\Services\AddUserToStudyService;
 use App\Services\StudyUserService;
 
 class StudyController extends Controller
@@ -52,9 +53,28 @@ class StudyController extends Controller
         return view('studies.show', compact('study', 'users'));
     }
 
-
+    public function edit()
+    {
+    }
     public function update()
     {
+    }
+    public function destroy(Study $study): JsonResponse|RedirectResponse
+    {
+        try {
+            $study->delete();
+            $message = 'Study deleted successfully';
+        } catch (\Exception $e) {
+            $message = 'Error deleting study: ' . $e->getMessage();
+            return response()->json(['error' => $message], 500);
+        }
+
+        if (request()->expectsJson()) {
+            return response()->json(['message' => $message]);
+        } else {
+            return redirect('/studies')
+                ->with('success', $message);
+        }
     }
 
     public function getChapterPgn(Chapter $chapter): JsonResponse
@@ -62,17 +82,28 @@ class StudyController extends Controller
         return response()->json(['pgn' => $chapter->pgn]);
     }
 
-    public function addUserToStudy(Request $request): RedirectResponse
+    public function addUserToStudy(Request $request): RedirectResponse|JsonResponse
     {
         $studyId = $request->input('study_id');
         $userIdsToAdd = $request->input('user_ids');
 
-        try {
-            StudyUserService::addUserToStudy($studyId, $userIdsToAdd);
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Failed to add users to the study.');
+        if (!StudyUserService::userExistsInStudy(Auth::id(), $studyId)) {
+            return response()->json([
+                'success' => false,
+                'error' => 'Failed to add users to the study.'
+            ]);
         }
 
-        return redirect()->back()->with('success', 'Users added to the study successfully.');
+        try {
+            AddUserToStudyService::addUserToStudy($studyId, $userIdsToAdd);
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('error', 'Failed to add users to the study.');
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Users added to the study successfully.'
+        ]);
     }
 }

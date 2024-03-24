@@ -9,6 +9,10 @@ use Illuminate\View\View;
 
 class SessionsController extends Controller
 {
+    public function create(): View
+    {
+        return view('/sessions/create');
+    }
     public function destroy(): RedirectResponse
     {
         auth()->logout();
@@ -27,10 +31,5 @@ class SessionsController extends Controller
         return back()
             ->withInput()
             ->withErrors(['email' => 'Your provided credentials could not be verified.']);
-    }
-
-    public function create(): View
-    {
-        return view('/sessions/create');
     }
 }

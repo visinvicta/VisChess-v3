@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreNewStudyRequest;
+use App\Http\Requests\UpdateStudyRequest;
 use App\Models\Study;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\Chapter;
-use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\View\View;
@@ -52,12 +52,26 @@ class StudyController extends Controller
         return view('studies.show', compact('study', 'users'));
     }
 
-    public function edit()
+    public function edit(Study $study): View
     {
+        return view('studies.edit', compact('study'));
     }
-    public function update()
+    public function update(UpdateStudyRequest $request, Study $study): RedirectResponse
     {
+        $validatedData = $request->validated();
+
+        try {
+            $study->update($validatedData);
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('error', 'Failed to update the study.');
+        }
+
+        return redirect('/studies')
+            ->with('success', 'Study successfully updated');
     }
+
+
     public function destroy(Study $study): JsonResponse|RedirectResponse
     {
         try {

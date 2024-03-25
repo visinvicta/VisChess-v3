@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Auth;
 
 class FavoriteController extends Controller
 {
+    public function index(): View
+    {
+        $favorites = Auth::user()->favorites()->with('user')->paginate(8);
+        return view('favorites/index', compact('favorites'));
+    }
+
     public function store(StoreNewFavoriteRequest $request): JsonResponse|RedirectResponse
     {
         $validatedData = $request->validated();
@@ -23,6 +29,11 @@ class FavoriteController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
         return response()->json(['message' => 'Favorite game saved successfully'], 201);
+    }
+    public function show(Favorite $favorite): View
+    {
+        return view('favorites/show')
+            ->with('favorite', $favorite);
     }
 
     public function destroy(Favorite $favorite): JsonResponse|RedirectResponse
@@ -41,17 +52,5 @@ class FavoriteController extends Controller
             return redirect('/favorites')
                 ->with('success', $message);
         }
-    }
-
-    public function index(): View
-    {
-        $favorites = Auth::user()->favorites()->with('user')->paginate(8);
-        return view('favorites/index', compact('favorites'));
-    }
-
-    public function show(Favorite $favorite): View
-    {
-        return view('favorites/show')
-            ->with('favorite', $favorite);
     }
 }

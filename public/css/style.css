@@ -389,6 +389,8 @@ label {
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
+    overflow: hidden;
+    
 }
 
 .study-name {
@@ -780,7 +782,9 @@ th {
     font-size: 20px;
     padding: 0px !important;
 }
-.delete-button {
+
+.delete-button,
+.edit-button {
     padding-left: 8px !important;
     padding-right: 8px !important;
     padding-top: 4px !important;

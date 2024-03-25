@@ -31,23 +31,25 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     //Games
-    Route::get('/games', [GameController::class, 'index']);
-    Route::get('/game/{game}', [GameController::class, 'show']);
-    Route::post('/games', [GameController::class, 'store']);
-    Route::delete('/games/{game}', [GameController::class, 'destroy']);
+    Route::get('/games', [GameController::class, 'index'])->name('games.index');
+    Route::get('/game/{game}', [GameController::class, 'show'])->name('games.show');
+    Route::post('/games', [GameController::class, 'store'])->name('games.store');
+    Route::delete('/games/{game}', [GameController::class, 'destroy'])->name('games.destroy');
 
     //Favorites
-    Route::get('/favorites', [FavoriteController::class, 'index']);
-    Route::get('/favorite/{favorite}', [FavoriteController::class, 'show']);
-    Route::post('/favorites', [FavoriteController::class, 'store']);
-    Route::delete('/favorites/{favorite}', [FavoriteController::class, 'destroy']);
+    Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
+    Route::get('/favorite/{favorite}', [FavoriteController::class, 'show'])->name('favorites.show');
+    Route::post('/favorites', [FavoriteController::class, 'store'])->name('favorites.store');
+    Route::delete('/favorites/{favorite}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
 
     //Studies
-    Route::get('/studies', [StudyController::class, 'index']);
-    Route::get('/studies/create', [StudyController::class, 'create']);
-    Route::get('/study/{study}', [StudyController::class, 'show']);
-    Route::post('/studies', [StudyController::class, 'store']);
-    Route::delete('/study/{study}', [StudyController::class, 'destroy']);
+    Route::get('/studies', [StudyController::class, 'index'])->name('studies.index');
+    Route::get('/studies/create', [StudyController::class, 'create'])->name('studies.create');
+    Route::get('/studies/{study}/edit', [StudyController::class, 'edit'])->name('studies.edit');
+    Route::get('/study/{study}', [StudyController::class, 'show'])->name('studies.show');
+    Route::post('/studies', [StudyController::class, 'store'])->name('studies.store');
+    Route::put('studies/{study}', [StudyController::class, 'update'])->name('studies.update');
+    Route::delete('/study/{study}', [StudyController::class, 'destroy'])->name('studies.destroy');
 
     Route::post('/add-users-to-study', [StudyController::class, 'addUserToStudy'])->name('add.users.to.study');
 

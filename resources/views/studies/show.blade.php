@@ -4,9 +4,9 @@
 <div class="content">
     <div class="main">
         <div class="header">
-            <h1>Study</h1>
             <div class="study-title">
                 <h2>{{ $study->name }}</h2>
+                <h5>{{ $study->description }}</h3>
             </div>
         </div>
 
@@ -58,6 +58,7 @@
                             </div>
                             <div class="study-action-buttons">
                                 <button id="addcomment" class="btn btn-color-5">Add comment</button>
+                                <a href="{{ route('studies.edit', ['study' => $study->id]) }}" class="btn btn-color-5 material-symbols-outlined edit-button">edit</a>
                                 <form method="POST">
                                     @method('DELETE')
                                     @csrf
@@ -66,6 +67,7 @@
                                         <i class="material-symbols-outlined delete-icon">delete</i>
                                     </button>
                                 </form>
+                                
                             </div>
                         </div>
                     </div>

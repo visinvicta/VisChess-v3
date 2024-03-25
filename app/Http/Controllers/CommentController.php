@@ -14,7 +14,9 @@ class CommentController extends Controller
     {
         $validatedData = $request->validated();
         $validatedData['user_id'] = Auth::id();
+
         Comment::create($validatedData);
+
         return response()->json(['message' => 'Comment created successfully'], 201);
     }
 
@@ -22,8 +24,7 @@ class CommentController extends Controller
     {
         try {
             $comment->delete();
-            $message = 'Comment deleted successfully';
-            return response()->json(['message' => $message]);
+            return response()->json(['message' => 'Comment deleted successfully']);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Comment not found'], 404);
         }

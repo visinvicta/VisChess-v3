@@ -13,10 +13,10 @@
                 @csrf
 
                 <label for="name"><b>Name</b></label>
-                <input class="registerfield" type="text" name="name" id="name" required value="{{ old('name') }}">
+                <input class="form-control" type="text" name="name" id="name" required value="{{ old('name') }}">
 
                 <label for="description"><b>Description</b></label>
-                <textarea class="registerfield" name="description" id="description" required>{{ old('description') }}</textarea>
+                <textarea class="form-control" name="description" id="description" required>{{ old('description') }}</textarea>
 
                 <button type="submit" class="btn btn-color-1">Create Study</button>
 
@@ -31,5 +31,4 @@
         </form>
     </div>
 </div>
-<script src="{{ asset('/js/games.js') }}"></script>
 @endsection

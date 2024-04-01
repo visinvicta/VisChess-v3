@@ -22,10 +22,9 @@
                             <div class="gameusername">{{ $game->user->name }}</div>
                             <div class="gamepgn">{{ $game->pgn }}</div>
                             <div class="buttoncontainer">
-                                <a href="/game/{{ $game->id }}" class="btn btn-color-1">Open in analysisboard</a>
+                                <a href="{{ route('games.show', ['game' => $game]) }}" class="btn btn-color-1">Open in analysisboard</a>
 
-
-                                <form action="/games/{{ $game->id }}" method="POST">
+                                <form action="{{ route('games.destroy', ['game' => $game]) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-color-4 delete-button">

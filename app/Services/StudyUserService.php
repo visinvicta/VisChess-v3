@@ -7,7 +7,7 @@ use App\Models\Study;
 
 class StudyUserService
 {
-    public static function userExistsInStudy(int $userId, int $studyId): bool
+    public function userExistsInStudy(int $userId, int $studyId): bool
     {
         $user = User::find($userId);
         if (!$user) {
@@ -17,7 +17,7 @@ class StudyUserService
         return $user->studies()->where('studies.id', $studyId)->exists();
     }
 
-    public static function addUserToStudy(int $studyId, array $userIdsToAdd): void
+    public function addUserToStudy(int $studyId, array $userIdsToAdd): void
     {
         $study = Study::findOrFail($studyId);
 

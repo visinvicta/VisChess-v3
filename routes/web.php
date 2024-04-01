@@ -43,13 +43,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/favorites/{favorite}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
 
     //Studies
-    Route::get('/studies', [StudyController::class, 'index'])->name('studies.index');
-    Route::get('/studies/create', [StudyController::class, 'create'])->name('studies.create');
-    Route::get('/studies/{study}/edit', [StudyController::class, 'edit'])->name('studies.edit');
-    Route::get('/study/{study}', [StudyController::class, 'show'])->name('studies.show');
-    Route::post('/studies', [StudyController::class, 'store'])->name('studies.store');
-    Route::put('studies/{study}', [StudyController::class, 'update'])->name('studies.update');
-    Route::delete('/study/{study}', [StudyController::class, 'destroy'])->name('studies.destroy');
+    Route::resource('studies', StudyController::class);
 
     Route::post('/add-users-to-study', [StudyController::class, 'addUserToStudy'])->name('add.users.to.study');
 

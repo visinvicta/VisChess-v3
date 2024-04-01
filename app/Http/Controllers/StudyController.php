@@ -16,15 +16,19 @@ use App\Services\StudyUserService;
 
 class StudyController extends Controller
 {
+    public function __construct(private readonly StudyUserService $studyUserService)
+    {
+    }
+
     public function index(): View
     {
         $studies = Study::all();
-        return view('studies/index')->with('studies', $studies);
+        return view('studies.index')->with('studies', $studies);
     }
 
     public function create(): View
     {
-        return view('studies/create');
+        return view('studies.create');
     }
 
     public function store(StoreNewStudyRequest $request): JsonResponse|RedirectResponse
@@ -100,7 +104,7 @@ class StudyController extends Controller
         $studyId = $request->input('study_id');
         $userIdsToAdd = $request->input('user_ids');
 
-        if (!StudyUserService::userExistsInStudy(Auth::id(), $studyId)) {
+        if (!$this->studyUserService->userExistsInStudy(Auth::id(), $studyId)) {
             return response()->json([
                 'success' => false,
                 'error' => 'Failed to add users to the study.'
@@ -108,7 +112,7 @@ class StudyController extends Controller
         }
 
         try {
-            StudyUserService::addUserToStudy($studyId, $userIdsToAdd);
+            $this->studyUserService->addUserToStudy($studyId, $userIdsToAdd);
         } catch (\Exception $e) {
             return redirect()->back()
                 ->with('error', 'Failed to add users to the study.');

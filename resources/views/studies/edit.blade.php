@@ -20,6 +20,14 @@
                 <textarea class="form-control" name="description" id="description" required>{{ $study->description }}</textarea>
 
                 <button type="submit" class="btn btn-color-1">Update Study</button>
+                <form method="POST">
+                    @method('DELETE')
+                    @csrf
+                    <input type="hidden" name="id" value="{{ $study->id }}">
+                    <button type="submit" class="btn btn-color-4 delete-button">
+                        <i class="material-symbols-outlined delete-icon">delete</i>
+                    </button>
+                </form>
 
                 @if ($errors->any())
                 <ul>

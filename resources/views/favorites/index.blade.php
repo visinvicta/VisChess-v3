@@ -22,10 +22,9 @@
                             <div class="gameusername">{{ $favorite->user->name }}</div>
                             <div class="gamepgn">{{ $favorite->pgn }}</div>
                             <div class="buttoncontainer">
-                                <a href="/favorite/{{ $favorite->id }}" class="btn btn-color-1">Open in analysisboard</a>
+                                <a href="{{ route('favorites.show', ['favorite' => $favorite])}}" class="btn btn-color-1">Open in analysisboard</a>
 
-
-                                <form action="/favorites/{{ $favorite->id }}" method="POST">
+                                <form action="{{ route('favorites.destroy', ['favorite' => $favorite]) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-color-4 delete-button">

@@ -154,7 +154,7 @@ h3 {
 }
 
 .gameboard {
-    width: 200px;
+    min-width: 200px;
 }
 
 .gamepgn {
@@ -425,7 +425,11 @@ label {
 }
 
 .study-action-buttons {
+    justify-content: center;
     display: flex;
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
 
 }
 

@@ -6,7 +6,7 @@ $(document).ready(function () {
         }
     });
 
-    $(".btn-study-create").click(function () {
+    $("#chaptermodal").click(function () {
         $("#createChapterModal").css("display", "block");
         $("#modalOverlay").css("display", "block");
     });

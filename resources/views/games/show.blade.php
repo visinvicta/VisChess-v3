@@ -21,12 +21,12 @@
             <h3>FEN:</h3>
             <div class="fencontainer" id="fen"></div>
             <h3>PGN:</h3>
-            <div class="boardgamepgn pgncontainer importpgn test">{{ $game['pgn'] }}</div>
+            <div class="boardgamepgn pgncontainer importpgn test">{{ $game->pgn }}</div>
 
             <div>
                 <form method="POST">
                     @method('DELETE')
-                    <input type="hidden" name="id" value="{{ $game['id'] }}">
+                    <input type="hidden" name="id" value="{{ $game->id }}">
                     <button type="submit" class="btn btn-color-4 delete-button">
                         <i class="material-symbols-outlined delete-icon">delete</i>
                     </button>

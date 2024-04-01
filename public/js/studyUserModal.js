@@ -5,7 +5,7 @@ $(document).ready(function () {
         }
     });
 
-    $(".btn-add-user").click(function () {
+    $("#usermodal").click(function () {
         $("#addUserModal").css("display", "block");
     });
 

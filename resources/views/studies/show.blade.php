@@ -10,9 +10,12 @@
             </div>
         </div>
 
-        <a href="#" class="btn btn-color-1 btn-study btn-study-create" data-toggle="modal" data-target="#createChapterModal">Chapter +</a>
-        <a href="#" class="btn btn-color-1 btn-add-user" data-toggle="modal" data-target="#addUserModal">User +</a>
-       
+        <div class="study-action-buttons">
+            <a href="#" class="btn btn-color-1" id="chaptermodal"data-toggle="modal" data-target="#createChapterModal">Chapter +</a>
+            <a href="#" class="btn btn-color-1" id="usermodal"data-toggle="modal" data-target="#addUserModal">User +</a>
+            <a href="{{ route('studies.edit', ['study' => $study->id]) }}" class="btn btn-color-5 material-symbols-outlined edit-button">edit</a>
+        </div>
+
         <div class="study-container">
             <div class="sidebar">
                 <h3>Chapters</h3>
@@ -56,19 +59,7 @@
                                 @endforeach
                                 @endforeach
                             </div>
-                            <div class="study-action-buttons">
-                                <button id="addcomment" class="btn btn-color-5">Add comment</button>
-                                <a href="{{ route('studies.edit', ['study' => $study->id]) }}" class="btn btn-color-5 material-symbols-outlined edit-button">edit</a>
-                                <form method="POST">
-                                    @method('DELETE')
-                                    @csrf
-                                    <input type="hidden" name="id" value="{{ $study->id }}">
-                                    <button type="submit" class="btn btn-color-4 delete-button">
-                                        <i class="material-symbols-outlined delete-icon">delete</i>
-                                    </button>
-                                </form>
-                                
-                            </div>
+                            <button id="addcomment" class="btn btn-color-5">Add comment</button>
                         </div>
                     </div>
                 </div>

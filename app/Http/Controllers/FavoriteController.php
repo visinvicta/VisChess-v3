@@ -7,6 +7,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\Favorite;
+use App\Models\User;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,7 +15,9 @@ class FavoriteController extends Controller
 {
     public function index(): View
     {
-        $favorites = Auth::user()->favorites()->with('user')->paginate(8);
+        /** @var User $user */
+        $user = Auth::user();
+        $favorites = $user->favorites()->with('user')->paginate(8);
         return view('favorites/index', compact('favorites'));
     }
 
